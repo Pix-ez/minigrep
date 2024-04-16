@@ -1,4 +1,4 @@
-use std::fs;
+use std::fs ;
 use std::error::Error;
 
 
@@ -83,36 +83,50 @@ impl Config{
     
 }
 
-pub fn search_case_senstive<'a>(query:& str, file_buffer:&'a str)->Vec<&'a str>{
-    let mut results= Vec::new();
+// pub fn search_case_senstive<'a>(query:& str, file_buffer:&'a str)->Vec<&'a str>{
+//     let mut results= Vec::new();
     
-    for line in file_buffer.lines(){
-        if line.contains(query){
-            results.push(line);
+//     for line in file_buffer.lines(){
+//         if line.contains(query){
+//             results.push(line);
            
-        }
+//         }
 
-    }
-    results
+//     }
+//     results
+    
+
+// }
+pub fn search_case_senstive<'a>(query:& str, file_buffer:&'a str)->Vec<&'a str>{
+   file_buffer
+   .lines()
+   .filter(|line|line.contains(query))
+   .collect()
     
 
 }
 
 pub fn search_case_insenstive<'a>(query:& str, file_buffer:&'a str)->Vec<&'a str>{
-    let mut results= Vec::new();
-    let query = query.to_lowercase();
+
+    file_buffer
+    .lines()
+    .filter(|line|line.to_lowercase().contains(&query.to_lowercase()))
+    .collect()
+
+    // let mut results= Vec::new();
+    // let query = query.to_lowercase();
     
-    for line in file_buffer.lines(){
-        if line.to_lowercase().contains(&query){
-            results.push(line);
+    // for line in file_buffer.lines(){
+    //     if line.to_lowercase().contains(&query){
+    //         results.push(line);
            
-        }
+    //     }
 
-    }
-    results
+    // }
+    // results
     
 
-}
+}   
 
 #[cfg(test)]
 mod tests{
